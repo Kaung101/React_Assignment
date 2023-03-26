@@ -1,5 +1,6 @@
 import Card from './components/Card';
 import List from './components/List';
+import MyForm from './components/MyForm';
 import TypeMe from './components/TypeMe';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       </div>
       <List />
       <TypeMe />
+      <MyForm/>
     </div>
   );
 }
