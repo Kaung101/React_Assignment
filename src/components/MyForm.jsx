@@ -1,62 +1,49 @@
-import {useState} from "react";
-import { ReactDOM } from "react-dom/client";
+import React, { useState } from 'react';
 
-export default function MyForm(){
-    const[account, setAccount] = useState({
-        email: '',
-        firstname: '',
-        lastname: '',
-        phno: '',
-        password: '',
-        isValid: false
-    })
+export default function MyForm() {
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+    const [formError, setFormError] = useState('');
+    function handleSubmit(e) {
+        e.preventDefault();
 
-    function handleChange(e) {
-        // const name = e.target.name;
-        // const value = e.target.value;
-        // account[name] = value;
-        // setAccount(account);
-        const target = e.currentTarget;
-        setAccount({
-            ...account,
-            [target.name]: target.value
-        })
-    }
-
-    function validationCheck(){
-        const phnoPattern = /^\d{10}$/ ;
-        if(phnoPattern.test(account.phno)){
-            setAccount(
-               {isValid : true}
-            )
-            
+        if (!/^[0-9]{10}$/.test(phoneNumber)) {
+        setFormError('Please enter a valid phone number.');
+        return;
         }
 
-    }
-    
-    function handleSubmit(event){
-        event.preventDefault();
-        alert(
-            JSON.stringify(account)
-        );
+        alert(`Email: ${email}\nFirst Name: ${firstName}\nLast Name: ${lastName}\nPhone Number: ${phoneNumber}\nPassword: ${password}`);
+        setFormError('');
     }
 
-    
-    return(
-        <form method="post" onSubmit={handleSubmit}>
-            <h3>Register</h3>
-            <label htmlFor=""> Email address<input type="email" name="email" onChange={handleChange} placeholder="Enter Email" required/>
-            </label><br />
-            <label htmlFor=""> Name<input type="text" name="firstname" onChange={handleChange} placeholder="Enter Name" required/>
-            </label><br />
-            <label htmlFor=""> Lastname<input type="text" name="lastname" onChange={handleChange} placeholder="Enter Lastname" required/>
-            </label><br />
-            <label htmlFor="">Phone Number<input type="tel" name="phnum" onChange={handleChange} placeholder="Enter Phone Number" required/>
-            </label><br />
-            <label htmlFor="">Password<input type="password" name="password" onChange={handleChange} placeholder="Password" required/>
-            </label><br />
-            <button type="submit">Submit</button>
-        </form>
-        
-    );
+  return (
+    <form onSubmit={handleSubmit}>
+        <h1>Register</h1>
+      <div>
+        <label>Email:</label>
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email"/>
+      </div>
+      <div>
+        <label>First Name:</label>
+        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Enter FirstName"/>
+      </div>
+      <div>
+        <label>Last Name:</label>
+        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Enter LastName"/>
+      </div>
+      <div>
+        <label>Phone Number:</label>
+        <input type="tel" pattern="[0-9]{10}" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="Enter Phone Number"/>
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password"/>
+      </div>
+      {formError && <p>{formError}</p>}
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
