@@ -1,0 +1,13 @@
+.card-container{
+    width: 200px;
+    height: 200px;
+    border: 1px lightgreen solid;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    transition: background-color 1s, color 1s;
+}
+.card-container:hover{
+    background-color: lightgreen;
+    color: black;
+}
